@@ -9,5 +9,5 @@
 - Hover over image over text span
 
 # Needs work
-- Responsive under 430px width.
+- Responsive under 560px width.
 
