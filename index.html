@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <!-- Nikola Savic October 2017 nikolasavic@outlook.com -->
+    <!-- As far as I am concerned this can be used under a free art license -->
+
+    <title>Puzzle - Vodoinstalater Beograd</title>
+    <meta name="description" content="Puzzle - Vodoinstalater Beograd.">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+    <style>
+         #container {
+            height: 400px;
+            width: 400px;
+            margin: 0 auto;
+            background-color: #cccccc;
+        }
+        #containerdva {
+            height: 400px;
+            width: 400px;
+            margin: 0 auto;
+            text-align:center;
+            margin-top: 10px;
+        }
+
+        #main {
+            position: absolute;
+        }
+
+        #main div {
+            background: url("http://www.vodoinstalater-beograd.co/puzzle/img/slika.png") no-repeat scroll 0 0;
+            background-size: 400px;
+            /* The image is twice as large. */
+            cursor: pointer;
+            position: absolute;
+        }
+        img {
+            display: none;
+            }
+
+        .pogledajte_sliku:hover + img{
+            display: block;
+            }
+        .hover_slika {
+            position: relative;
+            bottom:440px;
+        }
+        .cela_slika {
+            color: blue;
+        }
+    </style>
+
+</head>
+
+<body>
+
+<!-- Puzzle -->
+<div id="container" class="presentation">
+    <div id="main"></div>
+</div>
+<!-- Hover:over slika -->
+<div id="containerdva">
+    <h4>
+        <span class="pogledajte_sliku">Pogledajte Celu <span class="cela_slika">Sliku</span> !</span>
+        <img class="hover_slika" src="img/hover.png" width="400px" height="400px" />
+    </h4>
+</div>
+      
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script>
+            
+            function melange(liste) {
+                var i, temp, j, lon = liste.length;
+                for (i = 0; i < lon; i++) {
+                    j = ~~(Math.random() * (i + 1));
+                    temp = liste[i];
+                    liste[i] = liste[j];
+                    liste[j] = temp;
+                }
+                return liste;
+            }   
+            var myStringArray = [];
+            for (var i = 1; i < 17; i++) {
+                myStringArray.push(i);
+            }
+            melange(myStringArray);
+
+            var CarreVide = myStringArray.pop(); 
+            $.fn.extend({
+                puzzle_dg: function(e) {
+                    var n = e + "px";
+                    var r = e * 4 + "px";
+                    $("#main").css({
+                        width: r,
+                        height: r,
+                    });
+                    for (var i = 0; i < 16; i++) { 
+                        $("#main").append("<div style='left: " + i % 4 * e + "px; top: " + Math.floor(i / 4) * e + "px; width: " + e + "px; height: " + e + "px;'></div>")
+                    }
+                    for (var j = 0; j < myStringArray.length; j++) { 
+                        $("#main").children("div:nth-child(" + myStringArray[j] + ")").css({
+                            backgroundPosition: + -(j % 4) * e + "px " + -Math.floor(j / 4) * e + "px"
+                        });
+                    }
+                    $("#main").children("div:nth-child(" + CarreVide + ")").css({ 
+                        backgroundImage: "",
+                        background: "#cccccc"
+                    });
+                    $("#main").children("div").click(function() {
+                        Move(this, e)
+                    })
+                }
+            })
+            var zi = 1; 
+            function Move(e, t) {
+                var n = false;
+                var r = $("#main").children("div:nth-child(" + CarreVide + ")").css("left");
+                var i = $("#main").children("div:nth-child(" + CarreVide + ")").css("top");
+                var s = $(e).css("left");
+                var o = $(e).css("top");
+                if (r == s && o == parseInt(i) - t + "px") n = true;
+                if (r == s && o == parseInt(i) + t + "px") n = true;
+                if (parseInt(r) - t + "px" == s && o == i) n = true;
+                if (parseInt(r) + t + "px" == s && o == i) n = true;
+                if (n) {
+                    $(e).css("z-index", zi++);
+                    $(e).animate({
+                        left: r,
+                        top: i
+                    }, 200, function() {
+                        $("#main").children("div:nth-child(" + CarreVide + ")").css("left", s);
+                        $("#main").children("div:nth-child(" + CarreVide + ")").css("top", o)
+                    })
+                }
+            }
+            $(window).on('load', function() {
+                $('#main').puzzle_dg(100)
+            });
+        </script>
+</body>
+
+</html>
