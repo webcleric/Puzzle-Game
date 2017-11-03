@@ -9,23 +9,20 @@
 
     <title>Puzzle - Vodoinstalater Beograd</title>
     <meta name="description" content="Puzzle - Vodoinstalater Beograd.">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
     <style>
+
          #container {
-            height: 400px;
             width: 400px;
+            height: 400px;
             margin: 0 auto;
             background-color: #cccccc;
         }
         #containerdva {
-            height: 400px;
             width: 400px;
+            height: 400px;
             margin: 0 auto;
             text-align:center;
-            margin-top: 10px;
+            position: relative;
         }
 
         #main {
@@ -33,7 +30,7 @@
         }
 
         #main div {
-            background: url("http://www.vodoinstalater-beograd.co/puzzle/img/slika.png") no-repeat scroll 0 0;
+            background: url("img/slika.png") no-repeat scroll 0 0;
             background-size: 400px;
             /* The image is twice as large. */
             cursor: pointer;
@@ -94,7 +91,7 @@
             $.fn.extend({
                 puzzle_dg: function(e) {
                     var n = e + "px";
-                    var r = e * 4 + "px";
+                    var r = e * 1 + "px";
                     $("#main").css({
                         width: r,
                         height: r,
